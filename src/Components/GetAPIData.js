@@ -9,8 +9,11 @@ const GetAPIData = () => {
   const [apiData, setApiData] = useState([]);
 
   const deleteData = async (id) => {
-    const dle = await axios.delete(`http://localhost:3048/api/${id}`);
-    console.log("Deleted Sucessfully", dle.data);
+    await axios.delete(`http://localhost:3048/api/${id}`);
+    const file = [...apiData];
+    file.filter((e) => e.id !== id);
+    setApiData(file);
+    // console.log("Deleted Sucessfully", dle.data);
   };
 
   const getData = async () => {
@@ -52,7 +55,9 @@ const GetAPIData = () => {
                 <MdDeleteSweep
                   fontSize="30px"
                   color="#e74c3c"
-                  onClick={deleteData(props._id)}
+                  onClick={() => {
+                    deleteData(props._id);
+                  }}
                 />
               </Bottom>
             </Content>
